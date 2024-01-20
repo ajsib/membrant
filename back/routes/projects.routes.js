@@ -4,20 +4,25 @@ const projectControllers = require("../controllers/projectControllers");
 const authenticate = require("../middleware/authenticate");
 
 // Create a new project
-router.post("/", projectControllers.createProject);
+router.post("/", authenticate, projectControllers.createProject);
 // Retrieve a project by ID
-router.get("/:projectId", projectControllers.getProjectById);
+router.get("/:projectId", authenticate, projectControllers.getProjectById);
 // Update a project
-router.patch("/:projectId", projectControllers.updateProject);
+router.patch("/:projectId", authenticate, projectControllers.updateProject);
 // Delete a project
-router.delete("/:projectId", projectControllers.deleteProject);
+router.delete("/:projectId", authenticate, projectControllers.deleteProject);
 // List all projects
-router.get("/", projectControllers.listProjects);
+router.get("/", authenticate, projectControllers.listProjects);
 // add members to project
-router.patch("/:projectId/members", projectControllers.addMemberToProject);
+router.patch(
+  "/:projectId/members",
+  authenticate,
+  projectControllers.addMemberToProject
+);
 // remove members from project
 router.patch(
   "/:projectId/members/remove",
+  authenticate,
   projectControllers.removeMemberFromProject
 );
 
