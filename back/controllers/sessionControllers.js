@@ -1,16 +1,27 @@
 // sessionControllers.js
-
 const Session = require('../models/Session'); 
+const { JWT_SECRET } = require('../config/env');
+const jwt = require('jsonwebtoken');
 
 const sessionControllers = {
     // Create a new session
     createSession: async (req, res) => {
         try {
-            const { userId } = req.body; 
+            const { userId } = req.body;
+
+            // Check if the user exists
+            const user = await User.findById(userId);
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '24h' });
+            const expirationDuration = 24 * 60 * 60 * 1000; // 24 hours
             const newSession = new Session({
-                userId,
+                userId: user._id,
+                token,
                 createdAt: new Date(),
-                expiredAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours from now
+                expiredAt: new Date(Date.now() + expirationDuration)
             });
 
             const savedSession = await newSession.save();

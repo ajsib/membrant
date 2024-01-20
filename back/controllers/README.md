@@ -29,3 +29,61 @@
     - listTasks: Lists tasks within a project or for a specific user (with optional filters, e.g., by status, priority).
     - assignTask: Assigns or reassigns a task to a user.
     - logTaskTime: Logs time spent on a task.
+  
+---
+
+
+## Here we will illustrate the relationship for the authentication middleware and the controllers
+
+The aim is to have a solid understanding of how the authentication middleware and the controllers interact with each other.
+
+
+```plantuml
+@startuml
+
+!define RECTANGLE class
+
+RECTANGLE User {
+    +String _id
+    +String name
+    +String email
+    +String passwordHash
+    +String role
+    +Date createdAt
+    +Date lastLogin
+    +createUser()
+    +getUserById()
+    +updateUser()
+    +deleteUser()
+    +listUsers()
+    +changePassword()
+}
+
+RECTANGLE Session {
+    +String _id
+    +String userId
+    +String token
+    +Date createdAt
+    +Date expiredAt
+    +createSession()
+    +getSessionById()
+    +deleteSession()
+    +listUserSessions()
+}
+
+RECTANGLE authenticateMiddleware {
+    +jwt
+    +JWT_SECRET
+    +Session
+    +User
+    +authenticate()
+}
+
+User "1" -- "0..*" Session : has >
+Session "1" o-- "1" authenticateMiddleware : validates >
+authenticateMiddleware ..> User : fetches details >
+authenticateMiddleware ..> jwt : verifies token >
+
+@enduml
+
+```

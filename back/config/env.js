@@ -5,5 +5,5 @@ dotenv.config();
 
 module.exports = {
     DBCONNECTIONSTRING: process.env.MONGO_URI_AIDAN,
-    JWTSECRET: process.env.JWTSECRET,
+    JWT_SECRET: process.env.JWTSECRET,
 };
