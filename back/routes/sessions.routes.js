@@ -11,3 +11,5 @@ router.get("/:sessionId", sessionControllers.getSessionById);
 router.delete("/:sessionId", sessionControllers.deleteSession);
 // List all sessions for a specific user
 router.get("/user/:userId", sessionControllers.listUserSessions);
+
+module.exports = router;

@@ -20,3 +20,5 @@ router.get("/", authenticate, userControllers.listUsers);
 router.patch("/:userId/password", authenticate, userControllers.changePassword);
 // Authenticate user
 router.post("/authenticate", userControllers.authenticateUser);
+
+module.exports = router;
