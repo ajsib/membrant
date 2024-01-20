@@ -24,50 +24,50 @@ const sessionControllers = {
                 expiredAt: new Date(Date.now() + expirationDuration)
             });
 
-            const savedSession = await newSession.save();
-            res.status(201).json(savedSession);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
-
-    // Retrieve a session by ID
-    getSessionById: async (req, res) => {
-        try {
-            const session = await Session.findById(req.params.sessionId);
-            if (session) {
-                res.status(200).json(session);
-            } else {
-                res.status(404).json({ message: 'Session not found' });
-            }
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
-
-    // Delete a session
-    deleteSession: async (req, res) => {
-        try {
-            const session = await Session.findByIdAndDelete(req.params.sessionId);
-            if (session) {
-                res.status(200).json({ message: 'Session deleted successfully' });
-            } else {
-                res.status(404).json({ message: 'Session not found' });
-            }
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    },
-
-    // List all sessions for a specific user
-    listUserSessions: async (req, res) => {
-        try {
-            const sessions = await Session.find({ userId: req.params.userId });
-            res.status(200).json(sessions);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
+      const savedSession = await newSession.save();
+      res.status(201).json(savedSession);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
+  },
+
+  // Retrieve a session by ID
+  getSessionById: async (req, res) => {
+    try {
+      const session = await Session.findById(req.params.sessionId);
+      if (session) {
+        res.status(200).json(session);
+      } else {
+        res.status(404).json({ message: "Session not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  // Delete a session
+  deleteSession: async (req, res) => {
+    try {
+      const session = await Session.findByIdAndDelete(req.params.sessionId);
+      if (session) {
+        res.status(200).json({ message: "Session deleted successfully" });
+      } else {
+        res.status(404).json({ message: "Session not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  // List all sessions for a specific user
+  listUserSessions: async (req, res) => {
+    try {
+      const sessions = await Session.find({ userId: req.params.userId });
+      res.status(200).json(sessions);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = sessionControllers;
