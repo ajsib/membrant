@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 
 const { JWTSECRET } = require("../config/env");
 
