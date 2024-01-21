@@ -5,12 +5,18 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { DBCONNECTIONSTRING } = require('./config/env');
 
+// routes
+const userRoutes = require('./routes/users.routes');
+const projectRoutes = require('./routes/projects.routes');
+const taskRoutes = require('./routes/tasks.routes');
+
 const app = express();
 
 // Middleware
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(bodyParser.json());
+
 
 // Connect to MongoDB
 mongoose
@@ -26,8 +32,10 @@ mongoose
     })
     .catch(err => {
         console.error('Error connecting to MongoDB:', err);
-        process.exit(1);  // Exit the process with a non-zero status (indicates failure)
+        process.exit(1); 
     });
 
-// Routes
-// go here
+// app routes
+app.use("/api/users", userRoutes);
+app.use("/api/projects", projectRoutes);
+app.use("/api/tasks", taskRoutes);

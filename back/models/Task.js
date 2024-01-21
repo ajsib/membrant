@@ -1,18 +1,21 @@
 const mongoose = require("mongoose");
+const TimeLogged = require("./TimeLogged");
+const User = require("./User");
 
 // Task Schema
 const taskSchema = new mongoose.Schema({
-  taskId: { type: String, required: true, unique: true },
-  projectId: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project" },
   title: { type: String, required: true },
   description: { type: String },
-  assignedTo: { type: String },
+  assignedTo: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  },
   priority: { type: String },
   status: { type: String },
   deadline: { type: Date },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date },
-  timeLogged: { type: Number, default: 0 },
+  timeLogged: [TimeLogged.schema],
 });
 
 // Task Model
