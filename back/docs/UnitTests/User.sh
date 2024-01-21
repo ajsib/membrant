@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Endpoint base URL
-BASE_URL="http://localhost:3000/api"
+BASE_URL="http://192.168.56.1:3000/api"
 
 echo "1. Registering a new user..."
 # Register a new user
-REGISTRATION_RESPONSE=$(curl -s -X POST "$BASE_URL/users/register" -H "Content-Type: application/json" -d '{"name": "John Doe", "email": "johndoe@example.com", "password": "123456"}')
+REGISTRATION_RESPONSE=$(curl -X POST "http://192.168.56.1:3000/api/users/register" -H "Content-Type: application/json" -d '{"name": "John Doe", "email": "johndoe@example.com", "password": "123456"}')
 echo "Registration Response: $REGISTRATION_RESPONSE"
 USER_ID=$(echo $REGISTRATION_RESPONSE | jq -r '.session.user.id')
 SESSION_ID=$(echo $REGISTRATION_RESPONSE | jq -r '.session._id')
