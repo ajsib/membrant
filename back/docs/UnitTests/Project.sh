@@ -41,13 +41,13 @@ echo "5. Updating project information..."
 UPDATE_RESPONSE=$(curl -s -X PATCH "$BASE_URL/projects/$PROJECT_ID" -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -d '{"title": "My Updated Project"}')
 echo "Update Response: $UPDATE_RESPONSE"
 
-echo "6. Deleting the project..."
-# # Delete the project
-DELETE_PROJECT_RESPONSE=$(curl -s -X DELETE "http://192.168.56.1:3000/api/projects/$PROJECT_ID" -H "Authorization: Bearer $TOKEN")
-echo "Delete Project Response: $DELETE_PROJECT_RESPONSE"
+# echo "6. Deleting the project..."
+# # # Delete the project
+# DELETE_PROJECT_RESPONSE=$(curl -s -X DELETE "http://192.168.56.1:3000/api/projects/$PROJECT_ID" -H "Authorization: Bearer $TOKEN")
+# echo "Delete Project Response: $DELETE_PROJECT_RESPONSE"
 
 
-echo "7. Deleting the user..."
-# # Delete the user
-DELETE_RESPONSE=$(curl -s -X DELETE "http://192.168.56.1:3000/api/users/$USER_ID" -H "Authorization: Bearer $TOKEN")
-echo "Delete Response: $DELETE_RESPONSE"
+# echo "7. Deleting the user..."
+# # # Delete the user
+# DELETE_RESPONSE=$(curl -s -X DELETE "http://192.168.56.1:3000/api/users/$USER_ID" -H "Authorization: Bearer $TOKEN")
+# echo "Delete Response: $DELETE_RESPONSE"
