@@ -6,7 +6,7 @@
   "scripts": {
     "test": "test",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode=development --port=3000"
+    "start": "webpack-dev-server --mode=development --port=5000"
   },
   "author": "kevin, aidan",
   "license": "ISC",
