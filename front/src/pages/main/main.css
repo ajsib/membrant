@@ -1,0 +1,104 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    display: flex;
+    flex: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #00d5ff;
+}
+
+.header__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    color: black;
+}
+
+.header__text h1{
+    font-size: 80px;
+    text-shadow: 0 0 20px rgb(0, 68, 72);
+}
+
+.header__text h2{
+    font-size: 30px;
+    text-align: center;
+}
+
+.header__buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.signup-button{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0362c1;
+    border: none;
+    padding: 30px 32px;
+    text-decoration: none;
+    border-radius: 150px;
+    cursor: pointer;
+    margin-right: 50px;
+    width: 300px;
+    transition: .3s;
+}
+
+.signup-button p{
+    position: absolute;
+    margin: 0;
+    font-size: 20px;
+    color: #fff;
+    transition: .3s;
+}
+
+.signup-button img{
+    position: absolute;
+    right: 50%;
+    width: 30px;
+    height: 30px;
+    transition: .3s;
+    opacity: 0;
+}
+
+.signup-button:hover{
+    cursor: pointer;
+    background-color: #004080;
+    color: #fff;
+    transition: 0.3s;
+    transform: scale(1.1);
+}
+
+.signup-button:hover img{
+    opacity: 1;
+    transition: .3s;
+    transform: translate(400%) scale(1.5);
+}
+
+.signup-button:hover p{
+    transition: .3s;
+    transform: scale(1.1) translate(-50%);
+}
+
+.login-button{
+    position: relative;
+    border: none;
+    text-decoration: underline;
+    background-color: transparent;
+    border-radius: 150px;
+    cursor: pointer;
+    font-size: 15px;
+    right: 20px;
+    margin-top: 5px;
+}
