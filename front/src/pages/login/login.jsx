@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
-import "./login.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,7 +42,13 @@ const Login = () => {
 
   return (
     <div>
-      <div className="login">
+      <div className="login" style={{
+        // look at this inline styling!!
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "90vh",
+      }}>
         <div className="login__container">
           <h1>Log In</h1>
           <form>

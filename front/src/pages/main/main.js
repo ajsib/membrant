@@ -1,19 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Arrow from "../../assets/arrow.svg";
-import "./main.css";
+import styled from "styled-components";
+
+const Nigga = styled.div`
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  display: flex
+  margin: 10px
+  padding: 10px
+`;
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="mainpage">
+    <>
       <div className="header">
         <div className="header__text">
           <h1>Membrant</h1>
-          <h2>
-            "For every minute spent organizing, <br /> an hour is earned"-
-            Anonymous.
+          <h2 
+            style={{
+              // centered
+              textAlign: "center",
+            }}>
+            &quot;For every minute spent organizing, <br /> an hour is earned&quot; - Benjamin Franklin
           </h2>
         </div>
         <div className="header__buttons">
@@ -25,7 +37,7 @@ const Home = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
