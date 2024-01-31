@@ -4,8 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET } = require("../config/env");
-const { mongo } = require("mongoose");
-
 // Register a new user
 exports.createUser = async (req, res) => {
   try {
@@ -19,6 +17,7 @@ exports.createUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = new User({ name, email, password: hashedPassword });
+    console.log(user._id);
     await user.save();
 
     // create a session for the user
@@ -53,6 +52,7 @@ exports.loginUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    console.log(user._id);
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
