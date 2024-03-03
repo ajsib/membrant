@@ -45,22 +45,34 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="login">
-        <div className="login__container">
-          <h1>Log In</h1>
-          <form>
-            <h5>Username</h5>
-            <input type="email" onChange={(e) => handleEmailChange(e)} />
-            <h5>Password</h5>
-            <input type="password" onChange={(e) => handlePasswordChange(e)} />
-            <button onClick={(e) => handleSubmit(e)}>Log In</button>
-          </form>
-          <div className="login__error">{error}</div>
-        </div>
-        <button onClick={() => navigate("/")}>Go to Home</button>
-      </div>
-    </div>
+    <>
+      <h1
+        style={{
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
+        Log In
+      </h1>
+      <CenterDiv>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h5>Email</h5>
+          <input type="email" onChange={(e) => handleEmailChange(e)} />
+          <h5>Password</h5>
+          <input type="password" onChange={(e) => handlePasswordChange(e)} />
+          <button onClick={(e) => handleSubmit(e)}>Log In</button>
+        </form>
+        <div>{error}</div>
+      </CenterDiv>
+      <CenterButton onClick={() => navigate("/")}>Go to Home</CenterButton>
+    </>
   );
 };
 export default Login;

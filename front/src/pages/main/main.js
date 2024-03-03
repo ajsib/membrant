@@ -9,12 +9,14 @@ const Home = () => {
       <div>
         <div>
           <h1>Membrant</h1>
-          <h2 
+          <h2
             style={{
               // centered
               textAlign: "center",
-            }}>
-            &quot;For every minute spent organizing, <br /> an hour is earned&quot; - Benjamin Franklin
+            }}
+          >
+            &quot;For every minute spent organizing, <br /> an hour is
+            earned&quot; - Benjamin Franklin
           </h2>
         </div>
         <div>
@@ -22,7 +24,7 @@ const Home = () => {
           <button onClick={() => navigate("/login")}>Login</button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
