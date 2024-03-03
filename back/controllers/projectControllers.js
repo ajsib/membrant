@@ -72,6 +72,16 @@ exports.listProjects = async (req, res) => {
   }
 };
 
+// List projects by user
+exports.listProjectsByUser = async (req, res) => {
+  try {
+    const projects = await Project.find({ createdBy: req.params.userId });
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 // Add a member to a project
 exports.addMemberToProject = async (req, res) => {
   try {

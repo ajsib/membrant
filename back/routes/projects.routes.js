@@ -13,6 +13,12 @@ router.patch("/:projectId", authenticate, projectControllers.updateProject);
 router.delete("/:projectId", authenticate, projectControllers.deleteProject);
 // list projects
 router.get("/", authenticate, projectControllers.listProjects);
+// list projects by user
+router.get(
+  "/user/:userId",
+  authenticate,
+  projectControllers.listProjectsByUser
+);
 // add members to project
 router.patch(
   "/:projectId/members",

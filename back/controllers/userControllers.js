@@ -52,7 +52,6 @@ exports.loginUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log(user._id);
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
@@ -65,7 +64,7 @@ exports.loginUser = async (req, res) => {
     // create a session for the user
     const newSession = new Session({
       user: {
-        _id: user._id,
+        id: user._id,
         name: user.name,
         email: user.email,
       },
@@ -79,6 +78,7 @@ exports.loginUser = async (req, res) => {
     res.status(200).json({ message: "Login successful", session: newSession });
   } catch (error) {
     res.status(500).json({ message: "Error logging in user", error });
+    console.log(error);
   }
 };
 

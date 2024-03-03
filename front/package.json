@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3",
     "style-loader": "^3.3.3",
+    "styled-components": "^6.1.8",
     "svg-inline-loader": "^0.8.2",
     "svg-loader": "^0.0.2",
     "svg-url-loader": "^8.0.0"

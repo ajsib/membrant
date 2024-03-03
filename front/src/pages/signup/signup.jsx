@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
-import "./signup.css";
+import { CenterDiv } from "../../components/styled components/centerdiv";
+import { CenterButton } from "../../components/styled components/centerbutton";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -57,34 +58,48 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup">
-      <div className="signup__container">
-        <h1>Sign Up</h1>
-        <form>
+    <>
+      <h1
+        style={{
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
+        Sign Up
+      </h1>
+      <CenterDiv>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h5>Username</h5>
           <input
             type="text"
-            placeholder="username"
             onChange={(e) => {
               handleUsernameChange(e);
             }}
           />
+          <h5>Email</h5>
           <input
             type="email"
-            placeholder="email"
             onChange={(e) => {
               handleEmailChange(e);
             }}
           />
+          <h5>Password</h5>
           <input
             type="password"
-            placeholder="password"
             onChange={(e) => {
               handlePasswordChange(e);
             }}
           />
+          <h5>Confirm Password</h5>
           <input
             type="password"
-            placeholder="confirm password"
             onChange={(e) => {
               handlePasswordConfirmChange(e);
             }}
@@ -94,9 +109,9 @@ const Signup = () => {
           </button>
         </form>
         <div className="signup__error">{error}</div>
-      </div>
-      <button onClick={() => navigate("/")}>Go to Home</button>
-    </div>
+      </CenterDiv>
+      <CenterButton onClick={() => navigate("/")}>Go to Home</CenterButton>
+    </>
   );
 };
 
