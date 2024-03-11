@@ -52,6 +52,16 @@ exports.updateTask = async (req, res) => {
   }
 };
 
+// Get tasks by project
+exports.getTasksByProject = async (req, res) => {
+  try {
+    const tasks = await Task.find({ projectId: req.params.projectId });
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 // Delete a task
 exports.deleteTask = async (req, res) => {
   try {

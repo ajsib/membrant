@@ -70,7 +70,14 @@ const Projects = () => {
         <button onClick={addProject}>Add Project</button>
         {projects.map((project) => {
           return (
-            <div key={project._id} onClick={() => openProjectDetails(project)}>
+            <div
+              style={{
+                cursor: "pointer",
+                width: "max-content",
+              }}
+              key={project._id}
+              onClick={() => openProjectDetails(project)}
+            >
               <h3>{project.title}</h3>
               <p>{project.description}</p>
             </div>
