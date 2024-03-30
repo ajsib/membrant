@@ -1,30 +1,34 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
-import { CenterDiv } from "../../components/styled components/centerdiv";
-import { CenterButton } from "../../components/styled components/centerbutton";
+import Form from "../../components/forms/form";
+import { containerStyle } from "../../assets/form-style";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const fields = [
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+    },
+    {
+      name: "password",
+      label: "Password",
+      type: "password",
+    },
+  ];
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (formData) => {
     fetch(`${config.apiBaseUrl}/api/users/login`, {
       method: "POST",
       body: JSON.stringify({
-        email: email,
-        password: password,
+        email: formData.email,
+        password: formData.password,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -46,32 +50,11 @@ const Login = () => {
 
   return (
     <>
-      <h1
-        style={{
-          textAlign: "center",
-          width: "100%",
-        }}
-      >
-        Log In
-      </h1>
-      <CenterDiv>
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignContent: "center",
-            justifyContent: "center",
-          }}
-        >
-          <h5>Email</h5>
-          <input type="email" onChange={(e) => handleEmailChange(e)} />
-          <h5>Password</h5>
-          <input type="password" onChange={(e) => handlePasswordChange(e)} />
-          <button onClick={(e) => handleSubmit(e)}>Log In</button>
-        </form>
-        <div>{error}</div>
-      </CenterDiv>
-      <CenterButton onClick={() => navigate("/")}>Go to Home</CenterButton>
+      <div css={containerStyle}>
+        <h2>Login</h2>
+        <Form fields={fields} onSubmit={handleSubmit} />
+        <p>{error}</p>
+      </div>
     </>
   );
 };
