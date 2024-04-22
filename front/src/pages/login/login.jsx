@@ -1,29 +1,34 @@
-import React, { useState } from "react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
-import "./login.css";
+import Form from "../../components/forms/form";
+import { containerStyle } from "../../assets/form-style";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const fields = [
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+    },
+    {
+      name: "password",
+      label: "Password",
+      type: "password",
+    },
+  ];
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (formData) => {
     fetch(`${config.apiBaseUrl}/api/users/login`, {
       method: "POST",
       body: JSON.stringify({
-        email: email,
-        password: password,
+        email: formData.email,
+        password: formData.password,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +38,9 @@ const Login = () => {
       .then((data) => {
         if (data.message === "Login successful") {
           localStorage.setItem("token", data.session.token);
-          navigate("/");
+          localStorage.setItem("userId", data.session.user.id);
+          localStorage.setItem("name", data.session.user.name);
+          navigate("/dashboard");
         } else {
           setError(data.message);
         }
@@ -42,22 +49,13 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="login">
-        <div className="login__container">
-          <h1>Log In</h1>
-          <form>
-            <h5>Username</h5>
-            <input type="email" onChange={(e) => handleEmailChange(e)} />
-            <h5>Password</h5>
-            <input type="password" onChange={(e) => handlePasswordChange(e)} />
-            <button onClick={(e) => handleSubmit(e)}>Log In</button>
-          </form>
-          <div className="login__error">{error}</div>
-        </div>
-        <button onClick={() => navigate("/")}>Go to Home</button>
+    <>
+      <div css={containerStyle}>
+        <h2>Login</h2>
+        <Form fields={fields} onSubmit={handleSubmit} />
+        <p>{error}</p>
       </div>
-    </div>
+    </>
   );
 };
 export default Login;

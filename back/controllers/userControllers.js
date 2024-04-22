@@ -17,7 +17,6 @@ exports.createUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = new User({ name, email, password: hashedPassword });
-    console.log(user._id);
     await user.save();
 
     // create a session for the user
@@ -52,20 +51,19 @@ exports.loginUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log(user._id);
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: "24h",
     });
     // create a session for the user
     const newSession = new Session({
       user: {
-        _id: user._id,
+        id: user._id,
         name: user.name,
         email: user.email,
       },
@@ -79,6 +77,7 @@ exports.loginUser = async (req, res) => {
     res.status(200).json({ message: "Login successful", session: newSession });
   } catch (error) {
     res.status(500).json({ message: "Error logging in user", error });
+    console.log(error);
   }
 };
 
