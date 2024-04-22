@@ -1,7 +1,19 @@
-import React, { useEffect, useState } from "react";
+/** @jsxImportSource @emotion/react */
+import { useEffect, useState } from "react";
 import config from "../../../config";
-import Project from "./project";
+import { css } from "@emotion/react";
+import ProjectSlider from "./project";
 import NavBar from "../../components/navbar/navbar";
+import Card from "../../UI/Card";
+
+const projectsStyle = css`
+  width: 80%;
+  margin-left: 110px;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
+`;
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -61,46 +73,25 @@ const Projects = () => {
   return (
     <div>
       <NavBar />
-      <div
-        style={{
-          marginLeft: "110px",
-        }}
-      >
+      <div css={projectsStyle}>
         <h1>My Projects</h1>
         <button onClick={addProject}>Add Project</button>
         {projects.map((project) => {
           return (
-            <div
-              style={{
-                cursor: "pointer",
-                width: "max-content",
-              }}
-              key={project._id}
-              onClick={() => openProjectDetails(project)}
-            >
+            <Card key={project._id} onClick={() => openProjectDetails(project)}>
               <h3>{project.title}</h3>
               <p>{project.description}</p>
-            </div>
+            </Card>
           );
         })}
-        <div
-          style={{
-            position: "fixed",
-            top: "100px",
-            right: "100px",
-          }}
-        >
+        <div>
           {openProject && (
             <div>
-              <button
-                onClick={() => {
-                  setOpenProject(false);
-                  setSelectedProject(null);
-                }}
-              >
-                Close
-              </button>
-              <Project projectId={selectedProject} />
+              <ProjectSlider
+                projectId={selectedProject}
+                openProject={openProject}
+                closeProject={() => setOpenProject(false)}
+              />
             </div>
           )}
         </div>

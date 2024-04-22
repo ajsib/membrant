@@ -1,21 +1,26 @@
-import React from "react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+
+const navStyle = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f9fa;
+`;
+
+const navItemStyle = css`
+  margin: 10px;
+`;
 
 const NavBar = () => {
   return (
-    <div
-      style={{
-        position: "fixed",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        float: "left",
-        height: "100%",
-        border: "1px solid black",
-        width: "100px",
-      }}
-    >
+    <div css={navStyle}>
       <NavItem text={"Projects"} link={"/projects"} />
       <NavItem text={"Account"} link={"/account"} />
     </div>
@@ -24,14 +29,7 @@ const NavBar = () => {
 
 const NavItem = ({ link, image, text }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
+    <div css={navItemStyle}>
       <img src={image} />
       <Link to={link}>{text}</Link>
     </div>
