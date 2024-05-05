@@ -2,6 +2,12 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
+interface NavItemProps {
+  link: string;
+  image?: string; // Optional image prop
+  text: string;
+}
+
 const navStyle = css`
   position: fixed;
   top: 0;
@@ -27,10 +33,10 @@ const NavBar = () => {
   );
 };
 
-const NavItem = ({ link, image, text }) => {
+const NavItem: React.FC<NavItemProps> = ({ link, image, text }) => {
   return (
     <div css={navItemStyle}>
-      <img src={image} />
+      {image && <img src={image} alt={text} />} {/* Optional image rendering */}
       <Link to={link}>{text}</Link>
     </div>
   );

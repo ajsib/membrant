@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   mode: "development",
   output: {
     filename: "bundle.js",
@@ -11,17 +11,17 @@ module.exports = {
     publicPath: "/",
   },
   resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
       components: path.resolve(__dirname, "src/components/"),
     },
-    extensions: [".js", ".jsx"],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: "babel-loader",
+        use: "ts-loader",
       },
       {
         test: /\.css$/,
@@ -36,6 +36,9 @@ module.exports = {
         use: ["svg-url-loader"],
       },
     ],
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin({ template: "./public/index.html" }),

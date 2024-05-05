@@ -4,6 +4,30 @@ import config from "../../../config";
 import { css } from "@emotion/react";
 import Task from "../../components/task/task";
 
+interface Project {
+  title: string;
+  description: string;
+}
+
+interface Task {
+  _id: string;
+  projectId: string;
+  title: string;
+  description: string;
+  assignedTo: string;
+  priority: string;
+  status: string;
+  deadline: string;
+  createdAt: string;
+  timeLogged: any[]; // Update with appropriate type
+}
+
+interface Props {
+  projectId: string;
+  closeProject: () => void;
+  openProject: boolean;
+}
+
 const projectStyle = css`
   margin-left: 110px;
   position: relative;
@@ -86,41 +110,38 @@ const closeButtonStyle = css`
   cursor: pointer;
 `;
 
-const ProjectSlider = ({ projectId, closeProject, openProject }) => {
-  const [project, setProject] = useState({});
+const ProjectSlider: React.FC<Props> = ({ projectId, closeProject, openProject }) => {
+  const [project, setProject] = useState<Project>({ title: "", description: "" });
   const [editTitle, setEditTitle] = useState(false);
   const [editDescription, setEditDescription] = useState(false);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  // fetch project
+  // Fetch project
   const fetchProject = () => {
-    // get the project info
     fetch(`${config.apiBaseUrl}/api/projects/${projectId}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Project) => {
         setProject(data);
       });
   };
 
-  // fetch tasks
+  // Fetch tasks
   const fetchTasks = () => {
-    // get the tasks for this project
     fetch(`${config.apiBaseUrl}/api/tasks/projects/${projectId}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then((data: Task[]) => {
         setTasks(data);
       });
   };
@@ -128,7 +149,7 @@ const ProjectSlider = ({ projectId, closeProject, openProject }) => {
   useEffect(() => {
     fetchProject();
     fetchTasks();
-  }, []);
+  }, [projectId]);
 
   // Project editing
   const onTitleClick = () => {
@@ -255,7 +276,7 @@ const ProjectSlider = ({ projectId, closeProject, openProject }) => {
                   );
                 })}
               <tr>
-                <td colSpan="4" style={{ textAlign: "center" }}>
+                <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                   <button onClick={addTask}>Add Task</button>
                 </td>
               </tr>

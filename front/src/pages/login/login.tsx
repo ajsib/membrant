@@ -3,47 +3,32 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
+import Form, { FormField, FormData } from "../../components/forms/form";
 import { containerStyle } from "../../assets/form-style";
-import Form from "../../components/forms/form";
 
-const Signup = () => {
+const Login = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
-  const fields = [
+  const fields: FormField[] = [
     {
-      name: "username",
-      label: "Username",
-      type: "text",
+      name: "email",
+      label: "Email",
+      type: "email",
     },
     {
       name: "password",
       label: "Password",
       type: "password",
     },
-    {
-      name: "passwordConfirm",
-      label: "Confirm Password",
-      type: "password",
-    },
-    {
-      name: "email",
-      label: "Email",
-      type: "email",
-    },
   ];
 
-  const handleSubmit = (formData) => {
-    if (formData.password !== formData.passwordConfirm) {
-      setError("Passwords do not match");
-      return;
-    }
-    fetch(`${config.apiBaseUrl}/api/users/register`, {
+  const handleSubmit = (formData: FormData) => {
+    fetch(`${config.apiBaseUrl}/api/users/login`, {
       method: "POST",
       body: JSON.stringify({
-        name: formData.username,
-        password: formData.password,
         email: formData.email,
+        password: formData.password,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -51,20 +36,22 @@ const Signup = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "User created successfully") {
+        if (data.message === "Login successful") {
           localStorage.setItem("token", data.session.token);
-          navigate("/");
+          localStorage.setItem("userId", data.session.user.id);
+          localStorage.setItem("name", data.session.user.name);
+          navigate("/dashboard");
         } else {
           setError(data.message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   return (
     <>
       <div css={containerStyle}>
-        <h2>Sign Up</h2>
+        <h2>Login</h2>
         <Form fields={fields} onSubmit={handleSubmit} />
         <p>{error}</p>
       </div>
@@ -72,4 +59,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

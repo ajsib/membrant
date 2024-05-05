@@ -3,10 +3,25 @@ import { css } from "@emotion/react";
 import { useState, Fragment } from "react";
 import { containerStyle, formStyle } from "../../assets/form-style";
 
-const Form = ({ fields, onSubmit }) => {
-  const [formData, setFormData] = useState({});
+export interface FormField {
+  name: string;
+  label: string;
+  type: string;
+}
 
-  const handleChange = (e) => {
+export interface FormData {
+  [key: string]: string;
+}
+
+interface FormProps {
+  fields: FormField[];
+  onSubmit: (data: FormData) => void;
+}
+
+const Form: React.FC<FormProps> = ({ fields, onSubmit }) => {
+  const [formData, setFormData] = useState<FormData>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -14,7 +29,7 @@ const Form = ({ fields, onSubmit }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
   };
@@ -22,7 +37,7 @@ const Form = ({ fields, onSubmit }) => {
   return (
     <form onSubmit={handleSubmit} css={formStyle}>
       {fields.map((field) => (
-        <Fragment key={field.lable}>
+        <Fragment key={field.name}>
           <label htmlFor={field.name}>{field.label}</label>
           <input
             type={field.type}

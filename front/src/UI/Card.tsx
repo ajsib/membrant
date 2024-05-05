@@ -1,8 +1,13 @@
 /** @jsxImportSource @emotion/react */
+import { css, SerializedStyles } from "@emotion/react";
 import React from "react";
-import { css } from "@emotion/react";
 
-const cardStyle = css`
+interface CardProps {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  children: React.ReactNode;
+}
+
+const cardStyle: SerializedStyles = css`
   cursor: pointer;
   width: max-content;
   padding: 0 2vw 2vw 2vw;
@@ -14,16 +19,18 @@ const cardStyle = css`
   background-color: #f0f0f0;
   border-radius: 1vw;
   box-shadow: 0.5vw 0.5vw 1vw 0px rgba(0, 0, 0, 0.2);
+
   h3 {
     font-size: 2vw;
     margin-bottom: 1vw;
   }
+
   p {
     font-size: 1.5vw;
   }
 `;
 
-const Card = ({ children, onClick }) => {
+const Card: React.FC<CardProps> = ({ children, onClick }) => {
   return (
     <div css={cardStyle} onClick={onClick}>
       {children}

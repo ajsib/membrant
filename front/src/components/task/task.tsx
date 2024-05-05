@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from "react";
 import config from "../../../config";
 
-const Task = ({ task, showProject }) => {
-  const [user, setUser] = useState("");
-  const [project, setProject] = useState("");
-  const [editMode, setEditMode] = useState(false);
-  const [newTitle, setNewTitle] = useState(task.title);
-  const [newStatus, setNewStatus] = useState(task.status);
-  const [newDeadline, setNewDeadline] = useState(task.deadline);
-  const [reload, setReload] = useState(false); // State to trigger reload
+interface TaskProps {
+  task: {
+    _id: string;
+    title: string;
+    status: string;
+    deadline: string;
+    assignedTo: string;
+    projectId: string;
+  };
+  showProject: boolean;
+}
+
+const Task: React.FC<TaskProps> = ({ task, showProject }) => {
+  const [user, setUser] = useState<string>("");
+  const [project, setProject] = useState<string>("");
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [newTitle, setNewTitle] = useState<string>(task.title);
+  const [newStatus, setNewStatus] = useState<string>(task.status);
+  const [newDeadline, setNewDeadline] = useState<string>(task.deadline);
+  const [reload, setReload] = useState<boolean>(false); // State to trigger reload
 
   useEffect(() => {
-    const getUser = async (userId) => {
+    const getUser = async (userId: string) => {
       try {
         const response = await fetch(
           `${config.apiBaseUrl}/api/users/${userId}`,
           {
             method: "GET",
             headers: {
-              "Content-Type": "application",
+              "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
@@ -32,14 +44,14 @@ const Task = ({ task, showProject }) => {
       }
     };
 
-    const getProject = async (projectId) => {
+    const getProject = async (projectId: string) => {
       try {
         const response = await fetch(
           `${config.apiBaseUrl}/api/projects/${projectId}`,
           {
             method: "GET",
             headers: {
-              "Content-Type": "application",
+              "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
@@ -52,11 +64,12 @@ const Task = ({ task, showProject }) => {
         return null;
       }
     };
+
     if (!showProject) getUser(task.assignedTo);
     if (showProject) getProject(task.projectId);
   }, [task.assignedTo, reload]); // Add reload to the dependency array
 
-  const editTask = async (taskId, title, status, deadline) => {
+  const editTask = async (taskId: string, title: string, status: string, deadline: string) => {
     try {
       const response = await fetch(`${config.apiBaseUrl}/api/tasks/${taskId}`, {
         method: "PATCH",
@@ -79,15 +92,15 @@ const Task = ({ task, showProject }) => {
     }
   };
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTitle(e.target.value);
   };
 
-  const handleStatusChange = (e) => {
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setNewStatus(e.target.value);
   };
 
-  const handleDeadlineChange = (e) => {
+  const handleDeadlineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewDeadline(e.target.value);
   };
 

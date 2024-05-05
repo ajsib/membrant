@@ -6,6 +6,12 @@ import ProjectSlider from "./project";
 import NavBar from "../../components/navbar/navbar";
 import Card from "../../UI/Card";
 
+interface Project {
+  _id: string;
+  title: string;
+  description: string;
+}
+
 const projectsStyle = css`
   width: 80%;
   margin-left: 110px;
@@ -16,9 +22,9 @@ const projectsStyle = css`
 `;
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [openProject, setOpenProject] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [openProject, setOpenProject] = useState<boolean>(false);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
 
   useEffect(() => {
     document.title = "Projects";
@@ -30,13 +36,13 @@ const Projects = () => {
       {
         method: "GET",
         headers: {
-          "Content-Type": "application",
+          "Content-Type": "application/json", // Fixed content type
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     )
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Project[]) => {
         setProjects(data);
       });
   }, []);
@@ -46,7 +52,7 @@ const Projects = () => {
     fetch(`${config.apiBaseUrl}/api/projects`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", // Fixed content type
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
@@ -59,13 +65,13 @@ const Projects = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Project) => {
         setProjects([...projects, data]);
       });
   };
 
   // Open Project Details
-  const openProjectDetails = (project) => {
+  const openProjectDetails = (project: Project) => {
     setOpenProject(true);
     setSelectedProject(project._id);
   };
@@ -88,7 +94,7 @@ const Projects = () => {
           {openProject && (
             <div>
               <ProjectSlider
-                projectId={selectedProject}
+                projectId={selectedProject || ""}
                 openProject={openProject}
                 closeProject={() => setOpenProject(false)}
               />
