@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import config from "../../../config";
 import { css } from "@emotion/react";
 import ProjectSlider from "./project";
-import NavBar from "../../components/navbar/navbar";
+import NavBar from "../../components/Shared/navbar/navbar";
 import Card from "../../UI/Card";
 
 interface Project {

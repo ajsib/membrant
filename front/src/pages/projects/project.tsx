@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import config from "../../../config";
 import { css } from "@emotion/react";
-import Task from "../../components/task/task";
+import Task from "../../components/Shared/task/task";
 
 interface Project {
   title: string;

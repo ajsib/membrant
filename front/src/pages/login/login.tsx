@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
-import Form, { FormField, FormData } from "../../components/forms/form";
+import Form, { FormField, FormData } from "../../components/Shared/forms/form";
 import { containerStyle } from "../../assets/form-style";
 
 const Login = () => {

@@ -1,17 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useEffect } from "react";
-import NavBar from "../../components/navbar/navbar";
+import NavBar from "../../components/Shared/navbar/navbar";
 import Card from "../../UI/Card";
+import Calendar from "../../components/Pages/Dashboard/Calendar";
 
 const dashboard = css`
-  width: 80%;
-  height: 100%;
-  margin-left: 110px;
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-left: 0;
-  }
+  width: calc(100% - var(--left-margin) - var(--right-margin));
+  margin-left: var(--left-margin);
+  margin-right: var(--right-margin);
+`;
+
+const headerStyle = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `;
 
 const dashItemContainer = css`
@@ -20,22 +25,14 @@ const dashItemContainer = css`
   justify-content: space-between;
   width: 100%;
   margin-top: 5%;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
 `;
 
 const calendarStyle = css`
-  font-size: 1.5vw;
-  width: 80%;
-  margin-top: 5vw;
+  font-size: 1.5rem;
+  width: 100%; /* Ensure calendar also attempts to fill available space */
+  margin-top: 2rem;
   h3 {
-    font-size: 2vw;
-  }
-  @media (max-width: 768px) {
-    width: 80%;
-    margin-top: 5vw;
+    font-size: 2rem;
   }
 `;
 
@@ -47,17 +44,11 @@ const Dash = () => {
   return (
     <div css={dashboard}>
       <NavBar />
-      <div>
+      <div css={headerStyle}>
         <h1>Welcome {localStorage.getItem("name")}!</h1>
+        <p>Notifs</p>
       </div>
-      <div
-        css={{
-          marginLeft: "110px",
-          "@media (max-width: 768px)": {
-            marginLeft: "0",
-          },
-        }}
-      >
+      <div>
         <div css={dashItemContainer}>
           <Card>
             <h3>Projects</h3>
@@ -86,7 +77,7 @@ const Dash = () => {
         </div>
         <div css={calendarStyle}>
           <h3>Calendar</h3>
-          <div></div>
+          <Calendar />
         </div>
       </div>
     </div>

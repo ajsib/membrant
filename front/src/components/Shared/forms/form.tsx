@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState, Fragment } from "react";
-import { containerStyle, formStyle } from "../../assets/form-style";
+import { containerStyle, formStyle } from "../../../assets/form-style";
 
 export interface FormField {
   name: string;

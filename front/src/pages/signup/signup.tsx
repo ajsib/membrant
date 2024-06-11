@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
 import { containerStyle } from "../../assets/form-style";
-import Form, { FormData } from "../../components/forms/form";
+import Form, { FormData } from "../../components/Shared/forms/form";
 
 const Signup = () => {
   const navigate = useNavigate();
